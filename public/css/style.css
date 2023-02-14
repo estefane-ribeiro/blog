@@ -1,0 +1,22 @@
+body {
+  background-color: #eceff1;
+}
+
+.container {
+  padding-top: 20px;
+}
+
+button {
+  margin-top: 20px;
+}
+
+label {
+  margin-bottom: 10px;
+}
+nav {
+  padding-left: 30px;
+}
+
+.bg-roxo {
+  background-color: #563d7c;
+}

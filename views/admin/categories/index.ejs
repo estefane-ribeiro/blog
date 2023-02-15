@@ -1,29 +1,58 @@
 <%- include('../../partials/header.ejs') %>
-<body>
-  <%- include('../../partials/navbar.ejs') %>
-  <div class="container">
-    <hr />
-    <h2>Categorias</h2>
-    <hr />
+<!-- <body> -->
+<%- include('../../partials/navbar.ejs') %>
+<div class="container">
+  <hr />
+  <h2>Categorias</h2>
+  <hr />
 
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Título</th>
-          <th>Slug</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Dev Web</td>
-          <td>dev-web</td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</body>
+  <a href="/admin/categories/new" class="btn btn-success text-light">
+    Nova categoria
+  </a>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Título</th>
+        <th>Slug</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% categories.forEach(category => { %>
+      <tr>
+        <td><%= category.id %></td>
+        <td><%= category.title %></td>
+        <td><%= category.slug %></td>
+        <td>
+          <button class="btn btn-warning">Editar</button>
+          <form
+            action="/categorias/delete"
+            style="display: inline"
+            method="post"
+            onsubmit="confirmarDelecao(event, this)"
+          >
+            <input type="hidden" name="id" value="<%= category.id %>" />
+            <button class="btn btn-danger">Excluir</button>
+          </form>
+        </td>
+      </tr>
+
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
 <%- include('../../partials/footer.ejs') %>
+
+<script>
+  // document.querySelector('form').addEventListener('submit', confirmarDelecao)
+  function confirmarDelecao(event, form) {
+    event.preventDefault()
+    let decision = confirm('Você quer excluir essa categoria?')
+    if (decision) {
+      form.submit()
+    }
+  }
+</script>

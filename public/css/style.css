@@ -6,8 +6,9 @@ body {
   padding-top: 20px;
 }
 
-button {
-  margin-top: 20px;
+button,
+a:not(nav a) {
+  margin-block: 20px;
 }
 
 label {

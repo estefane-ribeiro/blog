@@ -21,3 +21,6 @@ nav {
 .bg-roxo {
   background-color: #563d7c;
 }
+input {
+  margin-block: 10px;
+}

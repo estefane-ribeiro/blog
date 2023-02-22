@@ -1,0 +1,16 @@
+<%- include('partials/header.ejs') %>
+<body>
+  <%- include('partials/homeNavbar.ejs') %>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h2><%= article.title %></h2>
+      </div>
+      <div class="card-body">
+        <!-- quando uso o <%- article.body %> estou formatando o conteúdo da variável de acordo com o html, ou seja o navegador interpreta as tags html  -->
+        <p><%- article.body %></p>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include('partials/footer.ejs') %>

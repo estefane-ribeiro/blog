@@ -1,0 +1,62 @@
+<%- include('../../partials/header.ejs') %>
+<!-- <body> -->
+<%- include('../../partials/navbar.ejs') %>
+<div class="container">
+  <hr />
+  <h2>Artigos</h2>
+  <hr />
+
+  <a href="/admin/articles/new" class="btn btn-success text-light">
+    Novo artigo
+  </a>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Título</th>
+        <th>Slug</th>
+        <th>Category</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% articles.forEach(article => { %>
+      <tr>
+        <td><%= article.id %></td>
+        <td><%= article.title %></td>
+        <td><%= article.slug %></td>
+        <td><%= article.category.title %></td>
+        <!-- aqui tem um join, estamos acessando a categoria de um artigo pela tabela article -->
+        <td>
+          <form
+            action="/articles/delete"
+            style="display: inline"
+            method="post"
+            onsubmit="confirmarDelecao(event, this)"
+          >
+            <input type="hidden" name="id" value="<%= article.id %>" />
+            <button class="btn btn-danger" href="">Excluir</button>
+          </form>
+
+          <a class="btn bg-roxo">Visualizar</a>
+        </td>
+      </tr>
+
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+
+<%- include('../../partials/footer.ejs') %>
+
+<script>
+  // document.querySelector('form').addEventListener('submit', confirmarDelecao)
+  function confirmarDelecao(event, form) {
+    event.preventDefault()
+    let decision = confirm('Você quer excluir esse artigo?')
+    if (decision) {
+      form.submit()
+    }
+  }
+</script>

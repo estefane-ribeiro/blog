@@ -28,6 +28,12 @@ app.use('/', categoriesController)
 
 app.use('/', articlesController)
 
-app.get('/', (req, res) => res.render('index'))
-
+app.get('/', (req, res) => {
+  Article.findAll({
+    include: [{ model: Category }],
+    order: [['id', 'DESC']]
+  }).then(articles => {
+    res.render('index', { articles })
+  })
+})
 app.listen(3000, () => console.log('Rodando'))

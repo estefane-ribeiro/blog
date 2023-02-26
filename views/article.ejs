@@ -5,9 +5,12 @@
     <div class="card">
       <div class="card-header">
         <h2><%= article.title %></h2>
+        <span class="datePost" style="color: #777"
+          ><%= article.updatedAt %></span
+        >
       </div>
       <div class="card-body">
-        <!-- quando uso o <%- article.body %> estou formatando o conteúdo da variável de acordo com o html, ou seja o navegador interpreta as tags html  -->
+        <!-- quando uso o <%- article.body %> estou formatando o conteúdo da variável de acordo com o html, ou seja o navegador interpreta as tags html   -->
         <p><%- article.body %></p>
       </div>
     </div>

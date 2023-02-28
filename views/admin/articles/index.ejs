@@ -29,6 +29,12 @@
         <td><%= article.category.title %></td>
         <!-- aqui tem um join, estamos acessando a categoria de um artigo pela tabela article -->
         <td>
+          <a
+            href="/admin/articles/edit/<%= article.id %>"
+            class="btn btn-warning"
+          >
+            Editar
+          </a>
           <form
             action="/articles/delete"
             style="display: inline"
@@ -39,7 +45,7 @@
             <button class="btn btn-danger" href="">Excluir</button>
           </form>
 
-          <a class="btn bg-roxo">Visualizar</a>
+          <a href="/<%= article.slug %>" class="btn bg-roxo">Visualizar</a>
         </td>
       </tr>
 

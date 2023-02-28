@@ -84,4 +84,34 @@ router.post('/articles/update', (req, res) => {
     .catch(() => res.redirect('/admin/articles'))
 })
 
+router.get('/articles/page/:numPage', (req, res) => {
+  let page = req.params.numPage
+  let offset = 0
+
+  if (isNaN(page) || page == 1) {
+    offset = 0
+  } else {
+    offset = parseInt(page) * -1 * 5
+  }
+
+  Article.findAndCountAll({
+    limit: 5,
+    offset: offset,
+    order: [['id', 'DESC']]
+  }).then(articles => {
+    let next = 0
+    if (offset + 5 >= articles.count) {
+      next = false
+    } else {
+      next = true
+    }
+
+    let result = {
+      next: next,
+      articles: articles
+    }
+    res.json(result)
+  })
+})
+
 module.exports = router

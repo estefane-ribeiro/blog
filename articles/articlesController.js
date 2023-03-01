@@ -91,15 +91,14 @@ router.get('/articles/page/:numPage', (req, res) => {
   if (isNaN(page) || page == 1) {
     offset = 0
   } else {
-    offset = parseInt(page) * -1 * 5
+    offset = parseInt(page)
   }
 
   Article.findAndCountAll({
     limit: 5,
-    offset: offset,
-    order: [['id', 'DESC']]
+    offset: offset
   }).then(articles => {
-    let next = 0
+    let next
     if (offset + 5 >= articles.count) {
       next = false
     } else {
@@ -110,7 +109,10 @@ router.get('/articles/page/:numPage', (req, res) => {
       next: next,
       articles: articles
     }
-    res.json(result)
+
+    Category.findAll().then(categories => {
+      res.render('admin/articles/page', { result, categories })
+    })
   })
 })
 

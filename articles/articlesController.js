@@ -91,7 +91,7 @@ router.get('/articles/page/:numPage', (req, res) => {
   if (isNaN(page) || page == 1) {
     offset = 0
   } else {
-    offset = parseInt(page)
+    offset = (parseInt(page) - 1) * 5
   }
 
   Article.findAndCountAll({
@@ -107,6 +107,7 @@ router.get('/articles/page/:numPage', (req, res) => {
     }
 
     let result = {
+      page: parseInt(page),
       next: next,
       articles: articles
     }

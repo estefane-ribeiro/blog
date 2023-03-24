@@ -11,6 +11,10 @@ a:not(nav a) {
   margin-block: 20px;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 label {
   margin-bottom: 10px;
 }

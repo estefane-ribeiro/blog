@@ -3,8 +3,9 @@ const router = express.Router()
 const Category = require('../categories/Category')
 const Article = require('./Article')
 const slugify = require('slugify')
+const adminAuth = require('../middlewares/AdminAuth')
 
-router.get('/admin/articles', (req, res) => {
+router.get('/admin/articles', adminAuth, (req, res) => {
   Article.findAll({
     order: [['id', 'DESC']],
     include: [{ model: Category }]
@@ -15,13 +16,13 @@ router.get('/admin/articles', (req, res) => {
   )
 })
 
-router.get('/admin/articles/new', (req, res) => {
+router.get('/admin/articles/new', adminAuth, (req, res) => {
   Category.findAll().then(categories => {
     res.render('admin/articles/new', { categories })
   })
 })
 
-router.post('/article/save', (req, res) => {
+router.post('/article/save', adminAuth, (req, res) => {
   let title = req.body.title
   let articleText = req.body.article
   let category = req.body.category
@@ -34,7 +35,7 @@ router.post('/article/save', (req, res) => {
   }).then(() => res.redirect('/admin/articles'))
 })
 
-router.post('/articles/delete', (req, res) => {
+router.post('/articles/delete', adminAuth, (req, res) => {
   const id = req.body.id
   if (id != undefined && !isNaN(id)) {
     Article.destroy({
@@ -47,7 +48,7 @@ router.post('/articles/delete', (req, res) => {
   }
 })
 
-router.get('/admin/articles/edit/:id', (req, res) => {
+router.get('/admin/articles/edit/:id', adminAuth, (req, res) => {
   let id = req.params.id
   if (isNaN(id)) {
     res.redirect('/admin/articles')
@@ -61,7 +62,7 @@ router.get('/admin/articles/edit/:id', (req, res) => {
   })
 })
 
-router.post('/articles/update', (req, res) => {
+router.post('/articles/update', adminAuth, (req, res) => {
   let id = req.body.id
   let title = req.body.title
   let article = req.body.article
@@ -84,7 +85,7 @@ router.post('/articles/update', (req, res) => {
     .catch(() => res.redirect('/admin/articles'))
 })
 
-router.get('/articles/page/:numPage', (req, res) => {
+router.get('/articles/page/:numPage',  (req, res) => {
   let page = req.params.numPage
   let offset = 0
 

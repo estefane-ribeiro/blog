@@ -10,12 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.1",
-    "ejs": "^3.1.8",
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
-    "mysql2": "^3.1.2",
-    "sequelize": "^6.28.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.2.0",
+    "sequelize": "^6.30.0",
     "slugify": "^1.6.5"
   }
 }

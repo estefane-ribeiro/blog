@@ -56,6 +56,31 @@ router.post('/authenticate', (req, res) => {
     }
   }).then(user => {
     if (user != undefined) {
+      // validar senha
+      const correct = bcrypt.compareSync(password, user.password)
+
+      if(correct) {
+        req.session.user = {
+          id: user.id,
+          email: user.email 
+        }
+        res.redirect('/admin/articles')
+      }else {
+        res.send(`
+        <div style="max-width: 70%; margin: 10rem auto">
+          <div style="margin-bottom: 2rem">
+            A senha está incorreta. <br/>
+            Tente novamente: 
+            <a href="/login" style="background-color: green; padding: 1rem; color: #fff; border-radius: .2rem;" text-decoration: none;>Login</a>
+          </div>
+          <br>
+          <div>
+            Crie sua conta.
+            <a href="/admin/users/create" style="background-color: #d7385e; padding: 1rem; color: #fff; border-radius: .2rem;" text-decoration: none;>Criar nova conta</a>
+          </div>
+        </div>
+      `)
+      }
     } else {
       res.send(`
         <div style="max-width: 70%; margin: 10rem auto">
@@ -71,6 +96,11 @@ router.post('/authenticate', (req, res) => {
       `)
     }
   })
+})
+
+router.get("/logout", (req, res) => {
+  req.session.user = undefined
+  res.redirect('/')
 })
 
 module.exports = router
